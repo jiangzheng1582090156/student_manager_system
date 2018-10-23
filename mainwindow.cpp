@@ -57,6 +57,11 @@ MainWindow::~MainWindow()
 //初始化班级
 void MainWindow::init_class()
 {
+    if (this->classes != NULL)
+    {
+        delete classes;
+        classes = NULL;
+    }
     this->classes = db_oper.get_all_class();
     add_class_model_item();
 }
@@ -199,5 +204,11 @@ void MainWindow::on_btn_add_class_clicked()
 
 
     add_class_dlg = new add_class_dialog(this);
-    add_class_dlg->show();
+    add_class_dlg->exec();
+
+    //update class
+    lv_class_model->clear();
+    init_class();
+    add_class_model_item();
+
 }

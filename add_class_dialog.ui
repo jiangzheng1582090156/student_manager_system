@@ -7,36 +7,129 @@
     <x>0</x>
     <y>0</y>
     <width>306</width>
-    <height>489</height>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>class_info</string>
+   <string>添加班级</string>
   </property>
-  <widget class="QPushButton" name="btn_ok">
+  <widget class="QPushButton" name="btn_insert">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>460</y>
+     <x>90</x>
+     <y>200</y>
      <width>80</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>ok</string>
+    <string>insert</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_cannel">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>460</y>
+     <x>180</x>
+     <y>200</y>
      <width>80</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>cannel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>40</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>班级编号:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>班级名称:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>36</x>
+     <y>140</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string> 辅导员:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_classid">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>40</y>
+     <width>160</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_classname">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>90</y>
+     <width>160</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_teachername">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>140</y>
+     <width>160</width>
+     <height>23</height>
+    </rect>
    </property>
   </widget>
  </widget>

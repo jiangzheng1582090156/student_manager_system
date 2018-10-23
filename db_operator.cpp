@@ -104,8 +104,7 @@ bool db_operator::save_student_info(const CStudent &student)
 
 bool db_operator::add_class_info(const cclass &class_info) const
 {
-    QString insert_sql = "INSERT INTO class"
-                         "VALUES(?, ?, ?)";
+    QString insert_sql = "INSERT INTO class VALUES(?,?,?)";
     QSqlQuery query;
     query.prepare(insert_sql);
     query.bindValue(0, class_info.classid());
