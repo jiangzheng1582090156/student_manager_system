@@ -187,7 +187,10 @@ void MainWindow::on_btn_save_clicked()
     {
         find_stu = db_oper.get_student_by_id (students->at (i).stuid ());
 
-        if ()
+//        if (find_stu != NULL)
+//        {
+//            db_oper.
+//        }
     }
 //    CStudent update_stu(
 //                lv_student_model->index(current_row, 0).data().toString(),

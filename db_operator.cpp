@@ -82,7 +82,7 @@ QVector<ccourse> * db_operator::get_class_course(QString classid) const
     return courses;
 }
 //update the new student infomation
-bool db_operator::save_student_info(const CStudent &student)
+bool db_operator::update_student_info(const CStudent &student)
 {
     QString sql = "UPDATE student "
                   "SET m_stuid=?, m_stuname=?, m_age=?, m_grade=?, m_classid=? "
@@ -129,7 +129,7 @@ CStudent * db_operator::get_student_by_id(QString id) const
         int m_age = find_student.value(2).toInt();
         QString m_grade = find_student.value(3).toString();
         QString m_classid = find_student.value(4).toString();
-        return new CStduent(m_stuid, m_stuname, m_age, m_grade, m_classid);
+        return new CStudent(m_stuid, m_stuname, m_age, m_grade, m_classid);
     }
 
     return NULL;
