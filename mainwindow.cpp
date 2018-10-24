@@ -63,6 +63,7 @@ void MainWindow::init_class()
         classes = NULL;
     }
     this->classes = db_oper.get_all_class();
+
     add_class_model_item();
 }
 //添加classItem
@@ -209,6 +210,4 @@ void MainWindow::on_btn_add_class_clicked()
     //update class
     lv_class_model->clear();
     init_class();
-    add_class_model_item();
-
 }
