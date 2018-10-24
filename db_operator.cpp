@@ -1,6 +1,5 @@
 #include "db_operator.h"
 
-#include <QtSql>
 #include <QMessageBox>
 
 db_operator::db_operator()
@@ -13,7 +12,7 @@ db_operator::db_operator()
 
 bool db_operator::create_connect()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    db = QSqlDatabase::addDatabase("QMYSQL");
 
     db.setDatabaseName("learn_db");
     db.setPort(3306);
@@ -132,7 +131,95 @@ CStudent * db_operator::get_student_by_id(QString id) const
         return new CStudent(m_stuid, m_stuname, m_age, m_grade, m_classid);
     }
 
+
     return NULL;
+}
+
+bool db_operator::insert_student_info(const CStudent &student) const
+{
+    QString insert_sql = "INSERT INTO student VALUE(?, ?, ?, ?, ?)";
+    QSqlQuery insert_stu;
+    insert_stu.prepare (insert_sql);
+    insert_stu.bindValue (0, student.stuid ());
+    insert_stu.bindValue (1, student.stuname ());
+    insert_stu.bindValue (2, student.age ());
+    insert_stu.bindValue (3, student.grade ());
+    insert_stu.bindValue (4, student.classid ());
+
+    bool success = insert_stu.exec ();
+
+    return success;
+}
+
+cclass * db_operator::get_class_by_id(QString id) const
+{
+    QString sql = QString("SELECT * FROM class WHERE m_classid = '%1'").arg(id);
+    QSqlQuery find_class(sql);
+
+    if (find_class.next())
+    {
+        QString m_classid = find_class.value(0).toString();
+        QString m_classname = find_class.value(1).toString();
+        QString m_leadername = find_class.value(2).toString();
+
+        return new cclass(m_classid, m_classname, m_leadername);
+    }
+    return NULL;
+}
+
+bool db_operator::insert_class_info(const cclass &classes) const
+{
+    QString insert_sql = "INSERT INTO class VALUE(?, ?, ?)";
+    QSqlQuery insert_class;
+    insert_class.prepare (insert_sql);
+    insert_class.bindValue (0, classes.classid ());
+    insert_class.bindValue (1, classes.classname ());
+    insert_class.bindValue (2, classes.leaderteacher ());
+
+    bool success = insert_class.exec ();
+
+    return success;
+}
+
+ccourse *db_operator::get_course_by_id(QString courseid, QString classid) const
+{
+    QString select_sql = "SELECT * FROM course WHERE m_courseid=? AND m_classid=?";
+    QSqlQuery select_course;
+    select_course.prepare (select_sql);
+    select_course.bindValue (0, courseid);
+    select_course.bindValue (1, classid);
+
+    if (select_course.next ())
+    {
+        QString courseid = select_course.value (0).toString ();
+        QString coursename = select_course.value (1).toString ();
+        QString teacher = select_course.value (2).toString ();
+        QString classid = select_course.value (3).toString ();
+        return new ccourse(courseid, coursename, teacher, classid);
+    }
+    return NULL;
+
+}
+
+bool db_operator::insert_course_info(const ccourse &course) const
+{
+    QString insert_sql = "INSERT INTO course VALUE(?, ?, ?,?)";
+    QSqlQuery insert_course;
+    insert_course.prepare (insert_sql);
+    insert_course.bindValue (0, course.courseid ());
+    insert_course.bindValue (1, course.coursename ());
+    insert_course.bindValue (2, course.teacher ());
+    insert_course.bindValue (3, course.classid ());
+
+    bool success = insert_course.exec ();
+
+    return success;
+}
+
+//release database
+db_operator::~db_operator()
+{
+    db.close ();
 }
 
 

@@ -132,7 +132,7 @@ void MainWindow::init_student(QString classid)
 void MainWindow::add_student_model_item()
 {
     lv_student_model->clear ();
-
+    init_student_model ();
     for (int i = 0; i < students->size(); ++i)
     {
         lv_student_model->setItem(i, 0, new QStandardItem(students->at(i).stuid()));
@@ -174,48 +174,87 @@ void MainWindow::on_btn_course_clicked()
 // save change status
 void MainWindow::on_btn_save_clicked()
 {
+    bool success = true;
     if (classes == NULL || students == NULL || courses == NULL)
     {
         QMessageBox::information (this, "error", "save error");
         return ;
     }
-    //save classes
 
-    //add student
+    //save classes
+    cclass * find_class = NULL;
+    for (int i = 0; i < classes->size (); ++i)
+    {
+        find_class = db_oper.get_class_by_id (classes->at (i).classid ());
+
+        if (find_class == NULL)
+        {
+            success = db_oper.insert_class_info (classes->at (i));
+        }
+        else
+        {
+            delete find_class;
+            find_class = NULL;
+        }
+    }
+
+    //save student
     CStudent * find_stu = NULL;
     for (int i = 0; i < students->size (); ++i)
     {
         find_stu = db_oper.get_student_by_id (students->at (i).stuid ());
 
-//        if (find_stu != NULL)
-//        {
-//            db_oper.
-//        }
+        if (find_stu == NULL)
+        {
+            success = db_oper.insert_student_info (students->at(i));
+        }
+        else
+        {
+            delete find_stu;
+            find_stu = NULL;
+        }
     }
-//    CStudent update_stu(
-//                lv_student_model->index(current_row, 0).data().toString(),
-//                lv_student_model->index(current_row, 1).data().toString(),
-//                lv_student_model->index(current_row, 2).data().toInt(),
-//                lv_student_model->index(current_row, 3).data().toString(),
-//                lv_student_model->index(current_row, 4).data().toString()
-//                );
 
-//    bool success = db_oper.save_student_info(update_stu);
+    //save course
+    ccourse * find_course = NULL;
+    for (int i = 0; i < courses->size (); ++i)
+    {
+        find_course = db_oper.get_course_by_id (courses->at (i).courseid (), courses->at (i).classid ());
 
-//    if (success)
-//        QMessageBox::information(this, "tips", "save successful");
-//    else
-//        QMessageBox::information(this, "tips", "save unsuccessful");
+        if (find_course == NULL)
+        {
+            success = db_oper.insert_course_info (courses->at(i));
+        }
+        else
+        {
+            delete find_course;
+            find_course = NULL;
+        }
+    }
+
+    if (success)
+    {
+        QMessageBox::information (this, "tip", "save successful");
+        return;
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "save unsuccessful");
+        return;
+    }
+
 }
 //add class
 void MainWindow::on_btn_add_class_clicked()
 {
+    int old_size = classes->size ();
+
     add_class_dlg = new add_class_dialog(this, classes);
     add_class_dlg->exec();
 
     //update class
     int size = classes->size ();
-    if (size == 0)
+    if (size == 0 || size == old_size)
         return ;
     lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), classes->at (size - 1).classname ()));
 }

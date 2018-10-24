@@ -4,6 +4,8 @@
 
 #include <QString>
 #include <QVector>
+#include <QtSql>
+
 #include "cclass.h"
 #include "ccourse.h"
 #include "cstudent.h"
@@ -23,10 +25,22 @@ public:
     bool add_student_info(const CStudent & student);
 
     CStudent * get_student_by_id(QString id) const;
+    bool insert_student_info(const CStudent & student) const;
+
+    cclass * get_class_by_id(QString id) const;
+    bool insert_class_info(const cclass & classes) const;
+
+    ccourse * get_course_by_id(QString courseid, QString classid) const;
+    bool insert_course_info(const ccourse & course) const;
+
+    ~db_operator();
 private:
     QString sql_username;
     QString sql_pwd;
     QString sql_databasename;
+
+
+    QSqlDatabase db;
 };
 
 #endif // DB_OPERATOR_H

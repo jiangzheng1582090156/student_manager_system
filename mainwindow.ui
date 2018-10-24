@@ -64,6 +64,9 @@
       <height>570</height>
      </rect>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+    </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>150</number>
     </attribute>

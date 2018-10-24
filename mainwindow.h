@@ -6,6 +6,8 @@
 #include <QListView>
 #include <QStandardItemModel>
 #include <QStandardItem>
+#include <QDebug>
+
 #include "cstudent.h"
 #include "cclass.h"
 #include "ccourse.h"
