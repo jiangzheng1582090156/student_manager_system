@@ -2,6 +2,7 @@
 #define ADD_CLASS_DIALOG_H
 
 #include <QDialog>
+#include <QVector>
 
 #include "cclass.h"
 #include "db_operator.h"
@@ -15,7 +16,7 @@ class add_class_dialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit add_class_dialog(QWidget *parent = 0);
+    explicit add_class_dialog(QWidget *parent = 0, QVector<cclass> * classes = NULL);
     ~add_class_dialog();
 
 private slots:
@@ -26,7 +27,8 @@ private slots:
 private:
     Ui::add_class_dialog *ui;
 
-    db_operator db_oper;
+    QVector<cclass> * m_classes;
+
 };
 
 #endif // ADD_CLASS_DIALOG_H

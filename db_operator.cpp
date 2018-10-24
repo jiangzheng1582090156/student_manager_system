@@ -116,6 +116,26 @@ bool db_operator::add_class_info(const cclass &class_info) const
 }
 
 
+//get student
+CStudent * db_operator::get_student_by_id(QString id) const
+{
+    QString sql = QString("SELECT * FROM student WHERE m_stuid = '%1'").arg(id);
+    QSqlQuery find_student(sql);
+
+    if (find_student.next())
+    {
+        QString m_stuid = find_student.value(0).toString();
+        QString m_stuname = find_student.value(1).toString();
+        int m_age = find_student.value(2).toInt();
+        QString m_grade = find_student.value(3).toString();
+        QString m_classid = find_student.value(4).toString();
+        return new CStduent(m_stuid, m_stuname, m_age, m_grade, m_classid);
+    }
+
+    return NULL;
+}
+
+
 
 
 

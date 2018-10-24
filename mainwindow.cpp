@@ -131,6 +131,8 @@ void MainWindow::init_student(QString classid)
 
 void MainWindow::add_student_model_item()
 {
+    lv_student_model->clear ();
+
     for (int i = 0; i < students->size(); ++i)
     {
         lv_student_model->setItem(i, 0, new QStandardItem(students->at(i).stuid()));
@@ -169,45 +171,48 @@ void MainWindow::on_btn_course_clicked()
     course_info_dlg->show();
 }
 
-// 保存修改的学生信息
+// save change status
 void MainWindow::on_btn_save_clicked()
 {
-    int current_row = ui->tv_student_info->currentIndex().row();
-
-    if (current_row == -1)
+    if (classes == NULL || students == NULL || courses == NULL)
     {
-        QMessageBox::information(this, "tip", "未选择信息");
+        QMessageBox::information (this, "error", "save error");
         return ;
     }
-    CStudent update_stu(
-                lv_student_model->index(current_row, 0).data().toString(),
-                lv_student_model->index(current_row, 1).data().toString(),
-                lv_student_model->index(current_row, 2).data().toInt(),
-                lv_student_model->index(current_row, 3).data().toString(),
-                lv_student_model->index(current_row, 4).data().toString()
-                );
+    //save classes
 
-    bool success = db_oper.save_student_info(update_stu);
+    //add student
+    CStudent * find_stu = NULL;
+    for (int i = 0; i < students->size (); ++i)
+    {
+        find_stu = db_oper.get_student_by_id (students->at (i).stuid ());
 
-    if (success)
-        QMessageBox::information(this, "tips", "save successful");
-    else
-        QMessageBox::information(this, "tips", "save unsuccessful");
+        if ()
+    }
+//    CStudent update_stu(
+//                lv_student_model->index(current_row, 0).data().toString(),
+//                lv_student_model->index(current_row, 1).data().toString(),
+//                lv_student_model->index(current_row, 2).data().toInt(),
+//                lv_student_model->index(current_row, 3).data().toString(),
+//                lv_student_model->index(current_row, 4).data().toString()
+//                );
+
+//    bool success = db_oper.save_student_info(update_stu);
+
+//    if (success)
+//        QMessageBox::information(this, "tips", "save successful");
+//    else
+//        QMessageBox::information(this, "tips", "save unsuccessful");
 }
 //add class
 void MainWindow::on_btn_add_class_clicked()
 {
-    if (add_class_dlg != NULL)
-    {
-        delete add_class_dlg;
-        add_class_dlg = NULL;
-    }
-
-
-    add_class_dlg = new add_class_dialog(this);
+    add_class_dlg = new add_class_dialog(this, classes);
     add_class_dlg->exec();
 
     //update class
-    lv_class_model->clear();
-    init_class();
+    int size = classes->size ();
+    if (size == 0)
+        return ;
+    lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), classes->at (size - 1).classname ()));
 }
