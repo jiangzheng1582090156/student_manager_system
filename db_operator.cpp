@@ -181,6 +181,11 @@ bool db_operator::insert_class_info(const cclass &classes) const
     return success;
 }
 
+bool db_operator::update_class_info(const cclass &classes) const
+{
+
+}
+
 ccourse *db_operator::get_course_by_id(QString courseid, QString classid) const
 {
     QString select_sql = "SELECT * FROM course WHERE m_courseid=? AND m_classid=?";

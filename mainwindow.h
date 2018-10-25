@@ -15,6 +15,7 @@
 
 #include "course_info_dialog.h"
 #include "add_class_dialog.h"
+#include "change_class_dialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,7 +44,8 @@ private slots:
     //Student
     void init_student(QString classid);
     //添加studentItem
-    void add_student_model_item();
+    void add_all_student_model_item();
+    void add_student_model_item(int i, const CStudent& student);
 
     //init student model
     void init_student_model();
@@ -56,6 +58,8 @@ private slots:
     void on_btn_save_clicked();
     //add class
     void on_btn_add_class_clicked();
+    //change class info
+    void on_btn_change_class_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -72,6 +76,7 @@ private:
 
     course_info_dialog * course_info_dlg;
     add_class_dialog * add_class_dlg;
+    change_class_dialog * change_class_dlg;
 };
 
 #endif // MAINWINDOW_H

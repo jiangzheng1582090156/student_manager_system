@@ -49,8 +49,34 @@ void add_class_dialog::on_btn_insert_clicked()
         return ;
     }
 
+    if (input_check () == false)
+    {
+        return;
+    }
+
     cclass add_class(id, name, tname);
 
     m_classes->push_back (add_class);
     this->close();
+}
+
+bool add_class_dialog::input_check()
+{
+    for (int i = 0; i < m_classes->size (); ++i)
+    {
+        if (m_classes->at (i).classid () == ui->le_classid->text ())
+        {
+            QMessageBox::information (this, "tip", "id已存在");
+            ui->le_classid->setFocus ();
+            return false;
+        }
+        else if (m_classes->at (i).classname ()== ui->le_classid->text ())
+        {
+            QMessageBox::information (this, "tip", "name已存在");
+            ui->le_classname->setFocus ();
+            return false;
+        }
+    }
+
+    return true;
 }

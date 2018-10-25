@@ -100,7 +100,7 @@
    <widget class="QPushButton" name="btn_add_class">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>270</x>
       <y>5</y>
       <width>80</width>
       <height>23</height>
@@ -108,6 +108,19 @@
     </property>
     <property name="text">
      <string>添加班级</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_change_class">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>5</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>更改班级</string>
     </property>
    </widget>
   </widget>

@@ -31,7 +31,8 @@ SOURCES += \
     ccourse.cpp \
     db_operator.cpp \
     course_info_dialog.cpp \
-    add_class_dialog.cpp
+    add_class_dialog.cpp \
+    change_class_dialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,12 +41,14 @@ HEADERS += \
     ccourse.h \
     db_operator.h \
     course_info_dialog.h \
-    add_class_dialog.h
+    add_class_dialog.h \
+    change_class_dialog.h
 
 FORMS += \
         mainwindow.ui \
     course_info_dialog.ui \
-    add_class_dialog.ui
+    add_class_dialog.ui \
+    change_class_dialog.ui
 
 DISTFILES +=
 

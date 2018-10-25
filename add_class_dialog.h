@@ -24,6 +24,8 @@ private slots:
 
     void on_btn_insert_clicked();
 
+    bool input_check ();
+
 private:
     Ui::add_class_dialog *ui;
 

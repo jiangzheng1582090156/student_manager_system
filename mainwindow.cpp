@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     add_class_dlg = NULL;
     course_info_dlg = NULL;
+    change_class_dlg = NULL;
 
 
     lv_class_model = new QStandardItemModel(this);
@@ -129,20 +130,24 @@ void MainWindow::init_student(QString classid)
     students = db_oper.get_class_student(classid);
 }
 
-void MainWindow::add_student_model_item()
+void MainWindow::add_all_student_model_item()
 {
     lv_student_model->clear ();
     init_student_model ();
     for (int i = 0; i < students->size(); ++i)
     {
-        lv_student_model->setItem(i, 0, new QStandardItem(students->at(i).stuid()));
-        lv_student_model->setItem(i, 1, new QStandardItem(students->at(i).stuname()));
-        lv_student_model->setItem(i, 2, new QStandardItem(QString::number(students->at(i).age())));
-        lv_student_model->setItem(i, 3, new QStandardItem(students->at(i).grade()));
-        lv_student_model->setItem(i, 4, new QStandardItem(students->at(i).classid()));
-
-        item_text_center(i);
+        add_student_model_item (i, students->at (i));
     }
+}
+void MainWindow::add_student_model_item(int i, const CStudent& student)
+{
+    lv_student_model->setItem(i, 0, new QStandardItem(student.stuid()));
+    lv_student_model->setItem(i, 1, new QStandardItem(student.stuname()));
+    lv_student_model->setItem(i, 2, new QStandardItem(QString::number(student.age())));
+    lv_student_model->setItem(i, 3, new QStandardItem(student.grade()));
+    lv_student_model->setItem(i, 4, new QStandardItem(student.classid()));
+
+    item_text_center(i);
 }
 
 //lv_class双击事件
@@ -150,7 +155,7 @@ void MainWindow::on_lv_class_doubleClicked(const QModelIndex &index)
 {
     QString classid = classes->at(index.row()).classid();
     init_student(classid);
-    add_student_model_item();
+    add_all_student_model_item();
 }
 
 
@@ -258,3 +263,25 @@ void MainWindow::on_btn_add_class_clicked()
         return ;
     lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), classes->at (size - 1).classname ()));
 }
+
+//change class info
+void MainWindow::on_btn_change_class_clicked()
+{
+    if (change_class_dlg != NULL)
+    {
+        delete change_class_dlg;
+        change_class_dlg = NULL;
+    }
+
+    cclass class_temp = classes->at (ui->lv_class->currentIndex ().row ());
+    change_class_dlg = new change_class_dialog(this, &class_temp);
+    change_class_dlg->exec ();
+
+    int index = ui->lv_class->currentIndex ().row ();
+    lv_class_model->removeRow (index);
+    classes->removeAt (index);
+    lv_class_model->insertRow (index, new QStandardItem(QIcon(":icons/class.ico"), class_temp.classname ()));
+    classes->insert (index, class_temp);
+}
+
+
