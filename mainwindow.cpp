@@ -261,7 +261,18 @@ void MainWindow::on_btn_add_class_clicked()
     int size = classes->size ();
     if (size == 0 || size == old_size)
         return ;
-    lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), classes->at (size - 1).classname ()));
+    cclass class_temp = classes->at (size - 1);
+    lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), class_temp.classname ()));
+
+
+    if (db_oper.insert_class_info (class_temp))
+    {
+        QMessageBox::information (this, "tip", "insert successful");
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "insert unsuccessful");
+    }
 }
 
 //change class info
@@ -273,15 +284,43 @@ void MainWindow::on_btn_change_class_clicked()
         change_class_dlg = NULL;
     }
 
-    cclass class_temp = classes->at (ui->lv_class->currentIndex ().row ());
+    int index = ui->lv_class->currentIndex ().row ();
+
+    cclass class_temp = classes->at (index);
+
     change_class_dlg = new change_class_dialog(this, &class_temp);
     change_class_dlg->exec ();
 
-    int index = ui->lv_class->currentIndex ().row ();
+    //如果class_temp 和 index指向的class不同则更改
+
+    if (class_temp == classes->at (index))
+        return;
+
     lv_class_model->removeRow (index);
     classes->removeAt (index);
+
     lv_class_model->insertRow (index, new QStandardItem(QIcon(":icons/class.ico"), class_temp.classname ()));
     classes->insert (index, class_temp);
+
+    if (db_oper.update_class_info (class_temp))
+    {
+        QMessageBox::information (this, "tip", "save successful");
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "svae unsuccessful");
+    }
 }
 
+//delete class
+void MainWindow::on_btn_delete_class_clicked()
+{
+    int current_index = ui->lv_class->currentIndex ().row ();
+    if (current_index == -1)
+    {
+        QMessageBox::information (this, "tip", "未选中删除班级");
+        return ;
+    }
 
+
+}

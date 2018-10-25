@@ -123,6 +123,19 @@
      <string>更改班级</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_delete_class">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>5</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>删除班级</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

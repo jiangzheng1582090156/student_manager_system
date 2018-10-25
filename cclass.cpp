@@ -43,3 +43,12 @@ void cclass::setLeaderteacher(const QString &leaderteacher)
 {
     m_leaderteacher = leaderteacher;
 }
+
+bool cclass::operator==(const cclass &c)
+{
+    if (this->m_classid == c.m_classid && this->m_classname == c.m_classname && this->m_leaderteacher == c.m_leaderteacher)
+    {
+        return true;
+    }
+    return false;
+}

@@ -30,3 +30,43 @@ void change_class_dialog::init_class_info()
     ui->le_classname->setText (m_class_info->classname ());
     ui->le_teachername->setText (m_class_info->leaderteacher ());
 }
+
+bool change_class_dialog::check_class_info()
+{
+    if (ui->le_classid->text () == "" || ui->le_classname->text () == "" || ui->le_teachername->text () == "")
+    {
+        QMessageBox::information (this, "error", "内容不能为空");
+        return false;
+    }
+    return true;
+}
+
+
+//cannel
+void change_class_dialog::on_btn_cannel_clicked()
+{
+    int ret = QMessageBox::question (this, "tip", "exit?", QMessageBox::Yes | QMessageBox::No);
+    if (QMessageBox::Yes == ret)
+    {
+        this->close();
+    }
+    else
+    {
+        return ;
+    }
+}
+
+
+//save changes
+void change_class_dialog::on_btn_insert_clicked()
+{
+    if (check_class_info ())
+    {
+        m_class_info->setClassid (ui->le_classid->text ());
+        m_class_info->setClassname (ui->le_classname->text ());
+        m_class_info->setLeaderteacher (ui->le_teachername->text ());
+        this->close ();
+    }
+
+
+}

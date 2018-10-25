@@ -20,6 +20,11 @@ public:
     void init_class_info();
 
     bool check_class_info();
+private slots:
+    void on_btn_cannel_clicked();
+
+    void on_btn_insert_clicked();
+
 private:
     Ui::change_class_dialog *ui;
 

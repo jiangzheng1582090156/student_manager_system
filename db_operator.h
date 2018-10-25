@@ -30,6 +30,7 @@ public:
     cclass * get_class_by_id(QString id) const;
     bool insert_class_info(const cclass & classes) const;
     bool update_class_info(const cclass & classes) const;
+    bool delete_class_info(const cclass & cclases) const;
 
     ccourse * get_course_by_id(QString courseid, QString classid) const;
     bool insert_course_info(const ccourse & course) const;

@@ -61,6 +61,8 @@ private slots:
     //change class info
     void on_btn_change_class_clicked();
 
+    void on_btn_delete_class_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -20,6 +20,10 @@ public:
     QString leaderteacher() const;
     void setLeaderteacher(const QString &leaderteacher);
 
+
+    //operator
+    bool operator==(const cclass & c);
+
 private:
     QString m_classid;
     QString m_classname;

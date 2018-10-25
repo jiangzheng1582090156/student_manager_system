@@ -183,7 +183,22 @@ bool db_operator::insert_class_info(const cclass &classes) const
 
 bool db_operator::update_class_info(const cclass &classes) const
 {
+    QString update_sql = "UPDATE class SET m_classname=?,m_leadername=? WHERE m_classid=?";
+    QSqlQuery update_class;
+    update_class.prepare (update_sql);
+    update_class.bindValue (0, classes.classname ());
+    update_class.bindValue (1, classes.leaderteacher ());
+    update_class.bindValue (2, classes.classid ());
 
+    bool success = update_class.exec ();
+
+    return success;
+}
+
+bool db_operator::delete_class_info(const cclass &cclases) const
+{
+    QString delete_sql = "DELETE FROM class WHERE m_classid=?";
+    QSql
 }
 
 ccourse *db_operator::get_course_by_id(QString courseid, QString classid) const
