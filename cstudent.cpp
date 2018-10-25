@@ -63,3 +63,15 @@ void CStudent::setClassid(const QString &classid)
 {
     m_classid = classid;
 }
+
+bool CStudent::operator ==(const CStudent &student)
+{
+    if (this->m_classid == student.m_classid && this->m_stuid == student.m_stuid
+       && this->m_stuname == student.m_stuname && this->m_grade == student.m_grade
+       && this->m_age == student.m_age
+       )
+    {
+        return true;
+    }
+    return false;
+}

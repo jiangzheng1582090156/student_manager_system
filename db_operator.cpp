@@ -12,16 +12,25 @@ db_operator::db_operator()
 
 bool db_operator::create_connect()
 {
-    db = QSqlDatabase::addDatabase("QMYSQL");
+    bool ok = true;
+    try
+    {
+        db = QSqlDatabase::addDatabase("QMYSQL");
 
-    db.setDatabaseName("learn_db");
-    db.setPort(3306);
+        db.setDatabaseName("learn_db");
+        db.setPort(3306);
 
-    db.setUserName("root");
+        db.setUserName("root");
 
-    db.setPassword("123456");
+        db.setPassword("123456");
 
-    bool ok = db.open();
+        ok = db.open();
+
+    }
+    catch(QString exception)
+    {
+
+    }
 
     return ok;
 }
@@ -40,6 +49,25 @@ QVector<cclass>* db_operator::get_all_class() const
     }
 
     return classes;
+}
+
+QVector<CStudent> *db_operator::get_all_student() const
+{
+    QSqlQuery all_student("SELECT * from student");
+    QVector<CStudent> * students = new QVector<CStudent>();
+    while (all_student.next())
+    {
+        QString m_stuid = all_student.value(0).toString();
+        QString m_stuname = all_student.value(1).toString();
+        int m_age = all_student.value(2).toInt();
+        QString m_grade = all_student.value(3).toString();
+        QString m_classid = all_student.value(4).toString();
+
+
+        students->push_back(CStudent(m_stuid, m_stuname, m_age, m_grade, m_classid));
+    }
+
+    return students;
 }
 
 QVector<CStudent> *db_operator::get_class_student(QString classid) const
@@ -198,7 +226,12 @@ bool db_operator::update_class_info(const cclass &classes) const
 bool db_operator::delete_class_info(const cclass &cclases) const
 {
     QString delete_sql = "DELETE FROM class WHERE m_classid=?";
-    QSql
+    QSqlQuery delete_class;
+    delete_class.prepare (delete_sql);
+    delete_class.bindValue (0, cclases.classid ());
+
+    bool success = delete_class.exec ();
+    return success;
 }
 
 ccourse *db_operator::get_course_by_id(QString courseid, QString classid) const

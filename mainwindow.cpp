@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!db_oper.create_connect())
     {
         QMessageBox::information(0, QObject::tr("Tips"), QObject::tr(" 连接数据库失败！！！ "));
-        return;
     }
     else
         QMessageBox::information(0, QObject::tr("Tips"), QObject::tr(" 连接数据库成功！！！ "));
@@ -26,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     add_class_dlg = NULL;
     course_info_dlg = NULL;
     change_class_dlg = NULL;
+    add_student_dlg = NULL;
+    change_student_dlg = NULL;
 
 
     lv_class_model = new QStandardItemModel(this);
@@ -165,6 +166,11 @@ void MainWindow::on_btn_course_clicked()
 
     QVector<ccourse> * courses = db_oper.get_class_course(classid);
 
+    if (courses == NULL)
+    {
+        QMessageBox::information (this, "tip", "暂无该班课程");
+        return ;
+    }
 
     if (course_info_dlg != NULL)
     {
@@ -260,18 +266,21 @@ void MainWindow::on_btn_add_class_clicked()
     //update class
     int size = classes->size ();
     if (size == 0 || size == old_size)
+    {
+        QMessageBox::information (this, "tip", "add class unsuccessful");
         return ;
+    }
     cclass class_temp = classes->at (size - 1);
     lv_class_model->appendRow (new QStandardItem (QIcon(":icons/class.ico"), class_temp.classname ()));
 
 
     if (db_oper.insert_class_info (class_temp))
     {
-        QMessageBox::information (this, "tip", "insert successful");
+        QMessageBox::information (this, "tip", "add class successful");
     }
     else
     {
-        QMessageBox::information (this, "tip", "insert unsuccessful");
+        QMessageBox::information (this, "tip", "add class unsuccessful");
     }
 }
 
@@ -322,5 +331,97 @@ void MainWindow::on_btn_delete_class_clicked()
         return ;
     }
 
+    bool success = db_oper.delete_class_info (classes->at (current_index));
+    if (success)
+    {
+        QMessageBox::information (this, "tip", "delete successful");
+        lv_class_model->removeRow (current_index);
+        classes->removeAt (current_index);
+        return;
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "delete unsucessful");
+        return ;
+    }
+}
 
+
+//全部学生
+void MainWindow::on_btn_all_student_clicked()
+{
+    students = db_oper.get_all_student ();
+    add_all_student_model_item ();
+}
+//add_student
+void MainWindow::on_btn_add_student_clicked()
+{
+    if (add_student_dlg != NULL)
+    {
+        delete add_student_dlg;
+        add_student_dlg = NULL;
+    }
+
+    int old_size =  students->size ();
+    add_student_dlg = new add_student_dialog(this, students);
+    add_student_dlg->exec ();
+
+    if (old_size == students->size ())
+    {
+        QMessageBox::information (this, "tip", "add student unsuccessful");
+        return ;
+    }
+
+    CStudent stu_temp = students->at (students->size () - 1);
+    //添加model
+    add_student_model_item (lv_student_model->rowCount (), stu_temp);
+    //添加数据库
+    bool success = db_oper.insert_student_info (stu_temp);
+    if (success)
+    {
+        QMessageBox::information (this, "tip", "add student successful");
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "add student unsuccessful");
+    }
+
+}
+
+//change student info
+void MainWindow::on_btn_change_student_clicked()
+{
+    if (change_student_dlg != NULL)
+    {
+        delete change_student_dlg;
+        change_student_dlg = NULL;
+    }
+
+    int index = ui->lv_class->currentIndex ().row ();
+
+    CStudent student_temp = students->at (index);
+
+    change_student_dlg = new change_student_dialog(this, &student_temp);
+    change_student_dlg->exec ();
+
+    //student_temp 和 index指向的student不同则更改
+
+    if (student_temp == students->at (index))
+        return;
+
+    lv_student_model->removeRow (index);
+    students->removeAt (index);
+
+    add_student_model_item (index, student_temp);
+
+    students->insert (index, student_temp);
+
+    if (db_oper.update_student_info (student_temp))
+    {
+        QMessageBox::information (this, "tip", "save student successful");
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "svae student unsuccessful");
+    }
 }

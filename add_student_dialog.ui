@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>add_class_dialog</class>
- <widget class="QDialog" name="add_class_dialog">
+ <class>add_student_dialog</class>
+ <widget class="QDialog" name="add_student_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>300</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>添加班级</string>
+   <string>add_student_dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -24,7 +24,7 @@
         </font>
        </property>
        <property name="text">
-        <string>班级编号:</string>
+        <string>学生编号:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -32,7 +32,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="le_classid">
+      <widget class="QLineEdit" name="le_stuid">
        <property name="focusPolicy">
         <enum>Qt::StrongFocus</enum>
        </property>
@@ -53,7 +53,7 @@
         </font>
        </property>
        <property name="text">
-        <string>班级名称:</string>
+        <string>学生姓名:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -61,7 +61,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="le_classname"/>
+      <widget class="QLineEdit" name="le_stuname"/>
      </item>
     </layout>
    </item>
@@ -75,7 +75,7 @@
         </font>
        </property>
        <property name="text">
-        <string> 辅导员:</string>
+        <string>学生年龄:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -83,12 +83,56 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="le_teachername"/>
+      <widget class="QLineEdit" name="le_stuage"/>
      </item>
     </layout>
    </item>
    <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>学生年级:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_stugrade"/>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>班级编号:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="le_stuclassid"/>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
       <widget class="QPushButton" name="btn_insert">
        <property name="text">

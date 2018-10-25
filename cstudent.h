@@ -25,6 +25,8 @@ public:
     QString classid() const;
     void setClassid(const QString &classid);
 
+    bool operator == (const CStudent& student);
+
 private:
     QString m_stuid;
     QString m_stuname;

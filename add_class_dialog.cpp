@@ -18,23 +18,14 @@ add_class_dialog::~add_class_dialog()
 
 void add_class_dialog::on_btn_cannel_clicked()
 {
-    if (ui->le_classid->text () != "" || ui->le_classname->text () != "" || ui->le_teachername->text () != "")
-    {
-        int ret = QMessageBox::question(this, "tip", "exit ?", QMessageBox::Yes | QMessageBox::No);
+    int ret = QMessageBox::question(this, "tip", "exit ?", QMessageBox::Yes | QMessageBox::No);
 
-        if (QMessageBox::Yes == ret)
-        {
-            this->close();
-        }
-        else
-            return;
+    if (QMessageBox::Yes == ret)
+    {
+        this->close();
     }
     else
-    {
-        this->close ();
-    }
-
-
+        return;
 }
 
 void add_class_dialog::on_btn_insert_clicked()

@@ -16,6 +16,8 @@
 #include "course_info_dialog.h"
 #include "add_class_dialog.h"
 #include "change_class_dialog.h"
+#include "add_student_dialog.h"
+#include "change_student_dialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -63,6 +65,12 @@ private slots:
 
     void on_btn_delete_class_clicked();
 
+    void on_btn_all_student_clicked();
+
+    void on_btn_add_student_clicked();
+
+    void on_btn_change_student_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -79,6 +87,9 @@ private:
     course_info_dialog * course_info_dlg;
     add_class_dialog * add_class_dlg;
     change_class_dialog * change_class_dlg;
+    add_student_dialog * add_student_dlg;
+    change_student_dialog * change_student_dlg;
+
 };
 
 #endif // MAINWINDOW_H

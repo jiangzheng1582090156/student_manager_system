@@ -136,6 +136,45 @@
      <string>删除班级</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_all_student">
+    <property name="geometry">
+     <rect>
+      <x>115</x>
+      <y>5</y>
+      <width>65</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>全部学生</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_add_student">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>5</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>添加学生</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_change_student">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>5</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>修改学生</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
