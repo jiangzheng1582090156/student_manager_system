@@ -9,6 +9,7 @@ change_student_dialog::change_student_dialog(QWidget *parent, CStudent * student
     ui->setupUi(this);
 
     m_student = student;
+    init_student_info ();
 }
 
 change_student_dialog::~change_student_dialog()
@@ -35,7 +36,11 @@ void change_student_dialog::init_student_info()
         return ;
     }
 
-
+    ui->le_stuid->setText (m_student->stuid ());
+    ui->le_stuname->setText (m_student->stuname ());
+    ui->le_stuage->setText (QString::number(m_student->age()));
+    ui->le_stugrade->setText (m_student->grade ());
+    ui->le_stuclassid->setText (m_student->classid ());
 
 }
 

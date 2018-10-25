@@ -129,6 +129,17 @@ bool db_operator::update_student_info(const CStudent &student)
 
 }
 
+bool db_operator::delete_student_info(const CStudent& student)
+{
+    QString delete_sql = "DELETE FROM student WHERE m_stuid=?";
+    QSqlQuery delete_student;
+    delete_student.prepare (delete_sql);
+    delete_student.bindValue (0, student.stuid ());
+
+    bool success = delete_student.exec ();
+    return success;
+}
+
 bool db_operator::add_class_info(const cclass &class_info) const
 {
     QString insert_sql = "INSERT INTO class VALUES(?,?,?)";

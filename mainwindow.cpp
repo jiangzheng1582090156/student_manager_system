@@ -409,12 +409,7 @@ void MainWindow::on_btn_change_student_clicked()
     if (student_temp == students->at (index))
         return;
 
-    lv_student_model->removeRow (index);
-    students->removeAt (index);
-
     add_student_model_item (index, student_temp);
-
-    students->insert (index, student_temp);
 
     if (db_oper.update_student_info (student_temp))
     {
@@ -425,3 +420,33 @@ void MainWindow::on_btn_change_student_clicked()
         QMessageBox::information (this, "tip", "svae student unsuccessful");
     }
 }
+
+
+//delete student
+void MainWindow::on_btn_delete_student_clicked()
+{
+    int current_index = ui->tv_student_info->currentIndex ().row ();
+    if (current_index == -1)
+    {
+        QMessageBox::information (this, "tip", "未选中学生");
+        return ;
+    }
+
+    bool success = db_oper.delete_student_info (students->at (current_index));
+    if (success)
+    {
+        QMessageBox::information (this, "tip", "delete student successful");
+        lv_student_model->removeRow (current_index);
+        students->removeAt (current_index);
+        return;
+    }
+    else
+    {
+        QMessageBox::information (this, "tip", "delete unsucessful");
+        return ;
+    }
+}
+
+
+
+

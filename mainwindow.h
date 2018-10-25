@@ -71,6 +71,8 @@ private slots:
 
     void on_btn_change_student_clicked();
 
+    void on_btn_delete_student_clicked();
+
 private:
     Ui::MainWindow *ui;
 

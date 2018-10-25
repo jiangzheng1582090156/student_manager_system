@@ -24,6 +24,7 @@ public:
 
     bool add_student_info(const CStudent & student);
     bool update_student_info(const CStudent& student);
+    bool delete_student_info(const CStudent& student);
 
     CStudent * get_student_by_id(QString id) const;
     bool insert_student_info(const CStudent & student) const;
