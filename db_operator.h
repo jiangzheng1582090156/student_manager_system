@@ -9,6 +9,7 @@
 #include "cclass.h"
 #include "ccourse.h"
 #include "cstudent.h"
+#include "cscore.h"
 class db_operator
 {
 public:
@@ -37,6 +38,9 @@ public:
     ccourse * get_course_by_id(QString courseid, QString classid) const;
     bool insert_course_info(const ccourse & course) const;
 
+    bool update_student_score(const cscore & score);
+    QVector<cscore> * get_student_score(const CStudent & student);
+    bool update_score(const cscore& score) const;
     ~db_operator();
 private:
     QString sql_username;

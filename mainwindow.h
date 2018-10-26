@@ -18,6 +18,8 @@
 #include "change_class_dialog.h"
 #include "add_student_dialog.h"
 #include "change_student_dialog.h"
+#include "student_score_dialog.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -73,6 +75,8 @@ private slots:
 
     void on_btn_delete_student_clicked();
 
+    void on_btn_score_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -80,6 +84,7 @@ private:
     QVector<CStudent> * students;
     QVector<cclass> * classes;
     QVector<ccourse> * courses;
+    QVector<cscore> * scores;
 
     db_operator db_oper;
 
@@ -91,6 +96,7 @@ private:
     change_class_dialog * change_class_dlg;
     add_student_dialog * add_student_dlg;
     change_student_dialog * change_student_dlg;
+    student_score_dialog * student_score_dlg;
 
 };
 

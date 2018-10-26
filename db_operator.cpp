@@ -280,6 +280,40 @@ bool db_operator::insert_course_info(const ccourse &course) const
     return success;
 }
 
+bool db_operator::update_student_score(const cscore &score)
+{
+    QString update_sql = "UPDATE score SET m_score=? WHERE m_courseid=? AND m_studentid=?";
+    QSqlQuery update_score;
+    update_score.prepare (update_sql);
+    update_score.bindValue (0, score.score ());
+    update_score.bindValue (1, score.courseid ());
+    update_score.bindValue (2, score.stuid ());
+
+    bool success = update_score.exec ();
+
+    return success;
+}
+
+QVector<cscore> *db_operator::get_student_score(const CStudent &student)
+{
+    QString sql = "SELECT * FROM score WHERE m_studentid =?";
+    QSqlQuery find_score;
+    find_score.prepare (sql);
+    find_score.bindValue (0, student.stuid ());
+
+    QVector<cscore> * score_tmp = new QVector<cscore>();
+    while (find_score.next())
+    {
+        QString m_stuid = find_score.value(0).toString();
+        QString m_courseid = find_score.value(1).toString();
+        QString m_score = find_score.value(2).toString();
+        score_tmp->push_back (cscore(m_stuid, m_courseid, m_score));
+    }
+
+
+    return score_tmp;
+}
+
 //release database
 db_operator::~db_operator()
 {

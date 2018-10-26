@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     change_class_dlg = NULL;
     add_student_dlg = NULL;
     change_student_dlg = NULL;
-
+    student_score_dlg = NULL;
 
     lv_class_model = new QStandardItemModel(this);
     ui->lv_class->setModel(lv_class_model);
@@ -450,3 +450,26 @@ void MainWindow::on_btn_delete_student_clicked()
 
 
 
+
+void MainWindow::on_btn_score_clicked()
+{
+
+    int index = ui->tv_student_info->currentIndex ().row ();
+
+    if (student_score_dlg != NULL)
+    {
+        delete student_score_dlg;
+        student_score_dlg = NULL;
+    }
+
+    if (index == -1)
+    {
+        QMessageBox::information (this, "tip", "未选中学生");
+        return ;
+    }
+
+
+    scores = db_oper.get_student_score (students->at (index));
+    student_score_dlg = new student_score_dialog(this, scores);
+    student_score_dlg->exec ();
+}

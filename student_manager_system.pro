@@ -34,7 +34,9 @@ SOURCES += \
     add_class_dialog.cpp \
     change_class_dialog.cpp \
     add_student_dialog.cpp \
-    change_student_dialog.cpp
+    change_student_dialog.cpp \
+    student_score_dialog.cpp \
+    cscore.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +48,9 @@ HEADERS += \
     add_class_dialog.h \
     change_class_dialog.h \
     add_student_dialog.h \
-    change_student_dialog.h
+    change_student_dialog.h \
+    student_score_dialog.h \
+    cscore.h
 
 FORMS += \
         mainwindow.ui \
@@ -54,7 +58,8 @@ FORMS += \
     add_class_dialog.ui \
     change_class_dialog.ui \
     add_student_dialog.ui \
-    change_student_dialog.ui
+    change_student_dialog.ui \
+    student_score_dialog.ui
 
 DISTFILES +=
 

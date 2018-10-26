@@ -188,6 +188,19 @@
      <string>删除学生</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_score">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>5</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>学生成绩</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
